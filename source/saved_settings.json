@@ -1,0 +1,24 @@
+{
+  "default": {
+    "population_count": "1000",
+    "infection_radius": "15",
+    "healthy_start_percentage": "0.99",
+    "sick_start_percentage": "0.01",
+    "infection_chance": "0.01",
+    "immune_chance": "0.001",
+    "person_display_size": "5",
+    "show_quads": "false",
+    "group_count": "1"
+  },
+  "testing": {
+    "population_count": "10000000",
+    "infection_radius": "15",
+    "healthy_start_percentage": "0.99",
+    "sick_start_percentage": "0.01",
+    "infection_chance": "0.01",
+    "immune_chance": "0.001",
+    "person_display_size": "5",
+    "show_quads": "false",
+    "group_count": "1"
+  }
+}
