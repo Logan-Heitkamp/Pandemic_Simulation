@@ -1,6 +1,6 @@
 
 class Node:
-    def __init__(self, corners: list[(), ()], content: any) -> None:
+    def __init__(self, corners: list[list[int]], content: any) -> None:
         self.corners = corners  # tl and br
         self.content = content
         self.quads = []
@@ -12,9 +12,8 @@ class Node:
 
         for idx, this_quad in enumerate(old_quads):
             for that_quad in old_quads[idx + 1:]:
-                # if quad is a parent quad of another quad
+                # if quad is a parent quad of another quad, remove parent quad
                 if this_quad == that_quad.parent_quad or this_quad == that_quad:
-                    # remove quad
                     remove_list.append(this_quad)
 
         # keep all quads not in remove list
@@ -50,10 +49,14 @@ class Node:
 
         for collision_quad in self.quads:
             for collision_node in collision_quad.nodes:
-                if self.test_collision(collision_node):
-                    collision_list.append(collision_node)
+                if collision_node != self:
+                    if self.test_collision(collision_node):
+                        collision_list.append(collision_node)
 
         return collision_list
+
+    def __str__(self):
+        return f'Node: {self.content}'
 
     def __repr__(self) -> str:
         return 'Node'
@@ -82,7 +85,7 @@ class Quad:
         # update node to show which quad it is in
         place_node.update_quads(self)
 
-        # split quad if there are more than 5 node in quad
+        # split quad if there are more than 5 nodes in quad
         if not self.split and len(self.nodes) == 6:
             # ensure quads are not smaller than the nodes
             if self.top_left[1] - self.bottom_right[1] > (self.node_size * 2):
