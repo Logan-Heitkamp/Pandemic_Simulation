@@ -159,7 +159,7 @@ def update_node_positions(update_node_list: list[Node], size: int) -> list[Node]
     return update_node_list
 
 
-def update_quad(node_update_list: list[Node], node_size: int, quad_coordinates: list[tuple]) -> Quad:
+def update_quad(node_update_list: list[Node], node_size: int, quad_coordinates: list[tuple[int, int]]) -> Quad:
     main_update_quad = Quad(quad_coordinates[0], quad_coordinates[1], node_size)
     for update_node in node_update_list:
         main_update_quad.place_node(update_node)
