@@ -1,7 +1,5 @@
-import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 import quad_tree as qt
-
 
 class TestNode:
     def test_node_update_quads_add_first_quad(self):
@@ -53,9 +51,50 @@ class TestNode:
         collision_node = qt.Node([[5, 10], [10, 5]], 'content')
         assert test_node.test_collision(collision_node)
 
-    @pytest.mark.skip
-    def test_node_find_collisions(self):
+    def test_node_test_collision_none(self):
         test_node = qt.Node([[5, 10], [10, 5]], 'content')
+        collision_node = qt.Node([[15, 20], [20, 15]], 'content')
+        assert not test_node.test_collision(collision_node)
+
+    @patch('quad_tree.Node.test_collision')
+    def test_node_find_collisions_collision(self, mock_test_collision):
+        test_node = qt.Node([[5, 10], [10, 5]], 'content')
+        collision_node = qt.Node([[5, 10], [10, 5]], 'content')
+
+        test_quad = qt.Quad((0, 100), (100, 0), 5)
+        test_quad.nodes.append(test_node)
+        test_quad.nodes.append(collision_node)
+
+        test_node.quads.append(test_quad)
+        collision_node.quads.append(test_quad)
+
+        assert mock_test_collision.called_once_with(collision_node)
+        assert test_node.find_collisions() == [collision_node]
+
+    @patch('quad_tree.Node.test_collision')
+    def test_node_find_collisions_no_collision(self, mock_test_collision):
+        test_node = qt.Node([[5, 10], [10, 5]], 'content')
+        collision_node = qt.Node([[5, 10], [10, 5]], 'content')
+
+        test_quad = qt.Quad((0, 100), (100, 0), 5)
+        test_quad.nodes.append(test_node)
+
+        other_quad = qt.Quad((0, 100), (100, 0), 5)
+        other_quad.nodes.append(collision_node)
+
+        test_node.quads.append(test_quad)
+        collision_node.quads.append(other_quad)
+
+        assert mock_test_collision.not_called()
+        assert test_node.find_collisions() == []
+
+    def test_node_repr(self):
+        test_node = qt.Node([[5, 10], [10, 5]], 'content')
+        assert repr(test_node) == 'Node'
+
+    def test_node_str(self):
+        test_node = qt.Node([[5, 10], [10, 5]], 'content')
+        assert str(test_node) == 'Node: content'
 
 
 class TestQuad:
@@ -146,3 +185,13 @@ class TestQuad:
         test_quad = qt.Quad((0, 100), (100, 0), 5)
         test_quad.split_quad()
         test_node = qt.Node([[5, 10], [10, 5]], 'content')
+
+
+    def test_quad_repr(self):
+        test_quad = qt.Quad((0, 100), (100, 0), 5)
+        assert repr(test_quad) == 'Quad'
+
+    def test_quad_str(self):
+        test_quad = qt.Quad((0, 100), (100, 0), 5)
+        assert str(test_quad) == ('top_left: (0, 100)\n'
+                                  'bottom_right: (100, 0)\n')
