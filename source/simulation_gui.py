@@ -3,6 +3,8 @@ from tkinter import ttk
 from tkinter import messagebox
 import json
 
+from simulation import run_simulation
+
 
 def setup_theme() -> None:
     # theme settings
@@ -192,8 +194,14 @@ def create_load_window(widgets: list[tk.StringVar]) -> None:
 
 
 def start_simulation(widgets: list[tk.StringVar]) -> None:
-    pass
+    if check_settings(widgets):
+        settings = []
+        for widget in widgets:
+            settings.append(widget.get())
 
+        run_simulation(settings)
+    else:
+        tk.messagebox.showwarning(title='ERROR', message='Unable to run simulation')
 
 def get_settings(widgets: list[tk.StringVar]) -> dict:
     var_pop_count, var_infection_radius, var_sick_start_percentage, var_healthy_start_percentage, \
