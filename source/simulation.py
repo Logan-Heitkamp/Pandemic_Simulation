@@ -1,6 +1,7 @@
 import sys
 
 import pygame as pg
+from pygame import SHOWN
 
 from quad_tree import Node, Quad
 from person import Person
@@ -167,17 +168,20 @@ def update_quad(node_update_list: list[Node], node_size: int, quad_coordinates: 
     return main_update_quad
 
 
-if __name__ == '__main__':
+def run_simulation(settings: list):
     # create all simulation variables
-    POPULATION_COUNT = 1000
-    INFECTION_RADIUS = 15
-    HEALTHY_START_PERCENT = 0.95
-    SICK_START_PERCENT = 0.05
-    INFECTION_CHANCE = 0.01
-    IMMUNE_CHANCE = 0.001
-    PERSON_DISPLAY_SIZE = 6
-    SHOW_QUADS = False
-    GROUP_COUNT = 1
+    POPULATION_COUNT = int(settings[0])
+    INFECTION_RADIUS = int(settings[1])
+    SICK_START_PERCENT = float(settings[2])
+    HEALTHY_START_PERCENT = float(settings[3])
+    INFECTION_CHANCE = float(settings[4])
+    IMMUNE_CHANCE = float(settings[5])
+    GROUP_COUNT = int(settings[6])
+    PERSON_DISPLAY_SIZE = int(settings[7])
+    if settings[8].lower in ['true', 't']:
+        SHOW_QUADS = True
+    else:
+        SHOW_QUADS = False
 
     GROUP_CORDS = {
         1: [[(700, 750), (1400, 50)]],
