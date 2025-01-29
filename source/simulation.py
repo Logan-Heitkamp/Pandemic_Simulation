@@ -1,7 +1,6 @@
 import sys
 
 import pygame as pg
-from pygame import SHOWN
 
 from quad_tree import Node, Quad
 from person import Person
