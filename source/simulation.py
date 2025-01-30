@@ -276,5 +276,4 @@ def run_simulation(settings: list):
 
     # quit Pygame
     pg.quit()
-    sys.exit()
 
