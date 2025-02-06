@@ -25,5 +25,5 @@ If you want to run the project on your own device, follow the instructions bello
 8. After closing the simulation window, you can run the simulation to see if anything changes or change the settings to explore more possibilities.
 
 ## Credits
-This project was heavily inspired by a YouTube video by 3Blue1Brown that can be found [here](https://www.youtube.com/watch?v=gxAaO2rsdIs): 
+This project was heavily inspired by a YouTube video by 3Blue1Brown that can be found [here](https://www.youtube.com/watch?v=gxAaO2rsdIs)
 
