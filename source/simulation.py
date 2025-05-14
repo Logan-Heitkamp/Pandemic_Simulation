@@ -195,7 +195,7 @@ def run_simulation(settings: list):
     # set up display
     WIDTH, HEIGHT = 1500, 800
     main_display = pg.display.set_mode((WIDTH, HEIGHT))
-    pg.display.set_caption('Pandemic Simulation')
+    pg.display.set_caption('Walking Dead Simulation')
 
     # create variables
     FPS = 60
