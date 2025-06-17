@@ -177,7 +177,7 @@ def run_simulation(settings: list):
     IMMUNE_CHANCE = float(settings[5])
     GROUP_COUNT = int(settings[6])
     PERSON_DISPLAY_SIZE = int(settings[7])
-    if settings[8].lower in ['true', 't']:
+    if settings[8].lower() in ['true', 't']:
         SHOW_QUADS = True
     else:
         SHOW_QUADS = False
@@ -276,5 +276,4 @@ def run_simulation(settings: list):
 
     # quit Pygame
     pg.quit()
-    sys.exit()
 
